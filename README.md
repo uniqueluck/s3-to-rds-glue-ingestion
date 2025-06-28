@@ -142,6 +142,9 @@ No hardcoded secrets – all done via environment variables
 
 
 
+
+
+
 💡 Who Should Use This Project?
 
 DevOps/Cloud engineers looking to showcase AWS integrations
