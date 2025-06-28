@@ -4,11 +4,11 @@ This project reads a CSV from an S3 bucket, uploads it to an RDS MySQL database,
 
 🔄 Data Flow Architecture
 
-Read CSV file from Amazon S3
+1. Read CSV file from Amazon S3
 
-Attempt to push to Amazon RDS (MySQL-compatible)
+2. Attempt to push to Amazon RDS (MySQL-compatible)
 
-If the RDS connection/upload fails:
+3. If the RDS connection/upload fails:
 
 Automatically fall back to AWS Glue Data Catalog
 
@@ -26,9 +26,6 @@ Uploads it to RDS via SQLAlchemy
 
 If RDS fails, uses boto3 to create a table in AWS Glue
 
-📊 RDS Upload Success Example
-
-If the RDS connection is successful, records are inserted into the MySQL table:
 
 📁 AWS Glue Fallback
 
