@@ -19,6 +19,8 @@ Automatically fall back to AWS Glue Data Catalog
 
 Register the dataset and schema based on S3 file
 
+
+
 🐍 Python Script Logic
 
 <p align="center">
@@ -35,6 +37,7 @@ Parses the CSV using pandas
 Uploads it to RDS via SQLAlchemy
 
 If RDS fails, uses boto3 to create a table in AWS Glue
+
 
 
 📁 AWS Glue Fallback
@@ -62,42 +65,37 @@ If the RDS upload fails, the script registers the CSV file in the Glue Data Cata
 </p>
 
 
+
+
 🐳 Docker Setup
 <p align="center">
   <img src="images/tree-diagram.png.png" alt="tree" width="700"/>
 </p>
 
 
+
 The project is containerized using Docker:
+
 
 docker build -t s3-to-rds-fallback .
 
+
 Run the container with required environment variables:
+
 
 <p align="center">
   <img src="images/docker_run.png" alt="Docker_run" width="700"/>
 </p>
 
-docker run \
--e AWS_ACCESS_KEY_ID=your-access-key \
--e AWS_SECRET_ACCESS_KEY=your-secret-key \
--e AWS_DEFAULT_REGION=ap-south-1 \
--e S3_BUCKET=my-bucket-data-ingestion \
--e S3_KEY=sample_data.csv \
--e RDS_HOST=your-db.rds.amazonaws.com \
--e RDS_USER=admin \
--e RDS_PASSWORD=admin123 \
--e RDS_DB=ingestion_db \
--e RDS_TABLE=my_table \
--e GLUE_DB=my_glue_db \
--e GLUE_TABLE=my_glue_table \
-s3-to-rds-fallback
+
 
 ✅ Final Output Logs
 
 <p align="center">
   <img src="images/Docker_log.png" alt="Docker_log" width="700"/>
 </p>
+
+
 
 🌟 Why Use This Project?
 
@@ -114,30 +112,35 @@ This project demonstrates how to build a resilient, cloud-native data ingestion 
 ✅ Clean code and logging
 
 ✅ Benefits
+Feature Benefit
 
-Feature
-
-Benefit
 
 📦 Dockerized App
 
 Easy to run in any environment
 
+
 🔁 Fallback to AWS Glue
 
 Ensures no data loss even when RDS fails
+
 
 ☁️ Native AWS Services
 
 Production-ready cloud components
 
+
 🛠️ Real Python Stack
 
 Demonstrates use of boto3, pandas, SQLAlchemy, Docker
 
+
 🔒 Secure Configs
 
 No hardcoded secrets – all done via environment variables
+
+
+
 
 💡 Who Should Use This Project?
 
