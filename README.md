@@ -72,8 +72,6 @@ This guide is beginner-friendly and includes links to a full setup tutorial.
 6. Create a key pair (download `my-key.pem`).  
 7. Launch.  
 
-📸 *Placeholder Screenshot: images/EC2_Launch.png*  
-📸 *Placeholder Screenshot: images/EC2_SecurityGroup.png*
 
 ## 🚀 Step 3: Prepare EC2 Environment
 
@@ -90,7 +88,6 @@ sudo service docker start
 sudo usermod -a -G docker ec2-user
 ```
 
-📸 *Placeholder Screenshot: images/Docker_Install.png*
 
 ### 🛠️ Install Python 3
 ```bash
@@ -166,21 +163,13 @@ If the RDS upload fails, the script automatically registers the CSV in AWS Glue 
 
 
 ### 📜 Logs in Docker
-<p align="center">
-  <img src="images/RDS_database.png" alt="RDS_database" width="700"/>
-</p>
+
 
 <p align="center">
   <img src="images/Docker_log.png" alt="Docker_log" width="700"/>
 </p>
 
 
-
-✅ Final Output Logs
-
-<p align="center">
-  <img src="images/Docker_log.png" alt="Docker_log" width="700"/>
-</p>
 
 
 
