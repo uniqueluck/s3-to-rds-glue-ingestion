@@ -2,12 +2,10 @@
 
 This project reads a CSV from an S3 bucket, uploads it to an RDS MySQL database, and falls back to AWS Glue if the RDS push fails. The entire workflow is automated using a Python script and packaged in a Docker container for portability.
 
-🔄 Data Flow Architecture
 
-<p align="center">
-  <img src="images/Data Flow Diagram.png" alt="Data Flow Diagram" width="700"/>
-</p>
+This guide is beginner-friendly and includes links to a full setup tutorial.
 
+## 📦 Goal
 
 1. Read CSV file from Amazon S3
 
@@ -15,30 +13,129 @@ This project reads a CSV from an S3 bucket, uploads it to an RDS MySQL database,
 
 3. If the RDS connection/upload fails:
 
-Automatically fall back to AWS Glue Data Catalog
-
-Register the dataset and schema based on S3 file
+ Automatically fall back to AWS Glue Data Catalog Register the dataset and schema based on S3 file
 
 
+## 📦 Table of Contents
+- [📸 Architecture](#-architecture)
+- [⚙️ Prerequisites](#-prerequisites)
+- [🌐 AWS Setup Guide](#-aws-setup-guide)
+- [🚀 Setup and Run](#-setup-and-run)
+- [🚀 Final Output](#-final-output)
+- [🐍 Python Script Logic](#-python-script-logic)
+- [🌟 Why Use This Project?](#-why-use-this-project)
+- [🙌 Who Should Use This?](#-who-should-use-this)
 
-🐍 Python Script Logic
+## 📸 Architecture
 
 <p align="center">
-  <img src="images/Python Code Screenshot.png" alt="Python Code Screenshot" width="700"/>
+  <img src="images/Data Flow Diagram.png" alt="Data Flow Diagram" width="700"/>
 </p>
 
 
-The script:
+## ⚙️ Prerequisites
 
-Uses boto3 to connect to S3 and download a CSV
-
-Parses the CSV using pandas
-
-Uploads it to RDS via SQLAlchemy
-
-If RDS fails, uses boto3 to create a table in AWS Glue
+✅ AWS Account ([Sign up here](https://aws.amazon.com/free/))  
+✅ PowerShell (comes preinstalled in Windows 10/11)  
 
 
+## 🌐 AWS Setup Guide
+
+## 📋 Table of Contents
+- [☁️ Step 1: Set up AWS Services (S3, RDS, Glue)](#-step-3-set-up-aws-services-s3-rds-glue)
+- [🚀 Step 2: Launch EC2 Instance](#-step-1-launch-ec2-instance)
+- [🐳 Step 3: Prepare EC2 Environment](#-step-2-prepare-ec2-environment)
+
+ 
+## 🚀 Step 1: Set up AWS Services (S3, RDS, Glue)
+
+### ✅ S3 Bucket
+1. Create bucket `my-s3-data-bucket`.
+2. Upload `data.csv`.  
+
+### ✅ RDS MySQL
+1. Create RDS MySQL database `mydb`.
+2. Enable public access.
+
+### ✅ AWS Glue
+1. Create Glue Database.
+2. Create Crawler for S3 data.
+
+## 🚀 Step 2: Launch EC2 Instance
+
+1. Go to [AWS EC2 Console](https://console.aws.amazon.com/ec2/).  
+2. Click **Launch Instance**.
+3. Select **Amazon Linux 2 AMI**.  
+4. Choose `t2.micro` (Free Tier).  
+5. Configure Security Group:
+   - Allow SSH (port 22), HTTP (80), and MySQL/Aurora (port 3306).
+6. Create a key pair (download `my-key.pem`).  
+7. Launch.  
+
+📸 *Placeholder Screenshot: images/EC2_Launch.png*  
+📸 *Placeholder Screenshot: images/EC2_SecurityGroup.png*
+
+## 🚀 Step 3: Prepare EC2 Environment
+
+SSH into EC2 (from PowerShell on your computer):  
+```powershell
+ssh -i "C:\Path\To\my-key.pem" ec2-user@<EC2_PUBLIC_IP>
+```
+
+### 🛠️ Install Docker
+```bash
+sudo yum update -y
+sudo amazon-linux-extras install docker -y
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+```
+
+📸 *Placeholder Screenshot: images/Docker_Install.png*
+
+### 🛠️ Install Python 3
+```bash
+sudo yum install python3 -y
+```
+### 🛠️ Install Git
+sudo yum install git -y
+
+
+
+
+## 🚀 Setup and Run
+
+### 🔥 Clone Repository
+```powershell
+git clone https://github.com/<your-username>/s3-to-rds-fallback.git
+cd s3-to-rds-fallback
+```
+
+### 🐳 Build Docker Image
+```powershell
+docker build -t s3-to-rds-fallback .
+```
+
+### ▶️ Run Docker Container
+```powershell
+docker run -e AWS_ACCESS_KEY_ID=XXXXXX `
+           -e AWS_SECRET_ACCESS_KEY=XXXXXX `
+           -e AWS_DEFAULT_REGION=ap-south-1 `
+           -e RDS_HOST=<your-rds-endpoint> `
+           -e RDS_PORT=3306 `
+           -e RDS_DB=mydb `
+           -e RDS_USER=admin `
+           -e RDS_PASSWORD=YourPassword123 `
+           -e S3_BUCKET_NAME=my-s3-data-bucket `
+           -e S3_FILE_KEY=data.csv `
+           s3-to-rds-fallback
+```
+
+## 🚀 Final Output
+Once the project is set up and the Docker container is running, you will see logs showing the data ingestion process. 
+
+### 🔁 Scenario 1: Fallback to AWS Glue
+
+If the RDS upload fails, the script automatically registers the CSV in AWS Glue Data Catalog. 
 
 📁 AWS Glue Fallback
 
@@ -54,7 +151,6 @@ If RDS fails, uses boto3 to create a table in AWS Glue
   <img src="images/Glue Table Screenshot.png" alt="Glue Table Screenshot" width="700"/>
 </p>
 
-If the RDS upload fails, the script registers the CSV file in the Glue Data Catalog:
 
 <p align="center">
   <img src="images/RDS_database.png" alt="RDS_database" width="700"/>
