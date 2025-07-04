@@ -46,20 +46,6 @@ sudo usermod -a -G docker ec2-user
 sudo yum install python3 -y
 ```
 
-### 🛠️ Install AWS CLI
-```bash
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install
-```
-
-### 🛠️ Configure AWS CLI
-```bash
-aws configure
-```
-
-📸 *Placeholder Screenshot: images/AWS_CLI_Configure.png*
-
 ## ☁️ Step 3: Set up AWS Services (S3, RDS, Glue)
 
 ### ✅ S3 Bucket
