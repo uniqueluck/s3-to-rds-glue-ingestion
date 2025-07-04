@@ -17,7 +17,7 @@ This guide is beginner-friendly and includes links to a full setup tutorial.
 ## 📸 Architecture
 
 <p align="center">
-  <img src="images/Data_Flow_Diagram.png" alt="Data Flow Diagram" width="700"/>
+  <img src="images/Data Flow Diagram.png" alt="Data Flow Diagram" width="700"/>
 </p>
 
 ## ⚙️ Prerequisites
@@ -76,7 +76,7 @@ docker run -e AWS_ACCESS_KEY_ID=XXXXXX `
 ## 🐍 Python Script Logic
 
 <p align="center">
-  <img src="images/Python_Code_Screenshot.png" alt="Python Code Screenshot" width="700"/>
+  <img src="images/Python Code Screenshot.png" alt="Python Code Screenshot" width="700"/>
 </p>
 
 ## 🌟 Why Use This Project?
