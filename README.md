@@ -101,6 +101,13 @@ sudo yum install git -y
 
 ## 🚀 Setup and Run
 
+### 🔥 Tree Structure
+
+<p align="center">
+  <img src="images/tree-diagram.png.png" alt="tree" width="700"/>
+</p>
+
+
 ### 🔥 Clone Repository
 ```powershell
 git clone https://github.com/<your-username>/s3-to-rds-fallback.git
@@ -126,10 +133,7 @@ docker run -e AWS_ACCESS_KEY_ID=XXXXXX `
            -e S3_FILE_KEY=data.csv `
            s3-to-rds-fallback
 ```
-🐳 Docker Setup
-<p align="center">
-  <img src="images/tree-diagram.png.png" alt="tree" width="700"/>
-</p>
+
 
 Run the container with required environment variables:
 
