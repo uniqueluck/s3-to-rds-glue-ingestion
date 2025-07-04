@@ -28,7 +28,7 @@ This guide is beginner-friendly and includes links to a full setup tutorial.
 ## 📸 Architecture
 
 <p align="center">
-  <img src="images/Data Flow Diagram.png" alt="Data Flow Diagram" width="700"/>
+  <img src="images/Data Flow Diagram.png" alt="Data Flow Diagram" width="900"/>
 </p>
 
 
@@ -51,8 +51,9 @@ This guide is beginner-friendly and includes links to a full setup tutorial.
 ### ✅ S3 Bucket
 1. Create bucket `my-s3-data-bucket`.
 2. Upload `data.csv`.
+ 
    <p align="center">
-  <img src="images/S3_buket.png" alt="S3" width="900"/>
+  <img src="images/S3_buket.png" alt="images" width="900"/>
 </p>
 
 
@@ -61,14 +62,15 @@ This guide is beginner-friendly and includes links to a full setup tutorial.
 2. Enable public access.
 
 <p align="center">
-  <img src="images/RDS_database.png" alt="RDS" width="700"/>
+  <img src="images/RDS_database.png" alt="RDS" width="900"/>
 </p>
 
 ### ✅ AWS Glue
 1. Create Glue Database.
 2. Create Crawler for S3 data.
+
 <p align="center">
-  <img src="images/Glue.png" alt="Glue" width="700"/>
+  <img src="images/Glue.png" alt="Glue" width="900"/>
 </p>
 
 ## 🚀 Step 2: Launch EC2 Instance
@@ -114,7 +116,7 @@ sudo yum install git -y
 ### 🔥 Tree Structure
 
 <p align="center">
-  <img src="images/tree-diagram.png.png" alt="tree" width="700"/>
+  <img src="images/tree-diagram.png.png" alt="tree" width="900"/>
 </p>
 
 
@@ -149,7 +151,7 @@ Run the container with required environment variables:
 
 
 <p align="center">
-  <img src="images/docker_run.png" alt="Docker_run" width="700"/>
+  <img src="images/docker_run.png" alt="Docker_run" width="900"/>
 </p>
 
 
@@ -163,15 +165,15 @@ If the RDS upload fails, the script automatically registers the CSV in AWS Glue 
 📁 AWS Glue Fallback
 
 <p align="center">
-  <img src="images/Glue.png" alt="Glue Table Screenshot" width="700"/>
+  <img src="images/Glue.png" alt="Glue Table Screenshot" width="900"/>
 </p>
 
 <p align="center">
-  <img src="images/Glue_table.png" alt="Glue Table Screenshot" width="700"/>
+  <img src="images/Glue_table.png" alt="Glue Table Screenshot" width="900"/>
 </p>
 
 <p align="center">
-  <img src="images/Glue Table Screenshot.png" alt="Glue Table Screenshot" width="700"/>
+  <img src="images/Glue Table Screenshot.png" alt="Glue Table Screenshot" width="900"/>
 </p>
 
 
@@ -180,7 +182,7 @@ If the RDS upload fails, the script automatically registers the CSV in AWS Glue 
 
 
 <p align="center">
-  <img src="images/Docker_log.png" alt="Docker_log" width="700"/>
+  <img src="images/Docker_log.png" alt="Docker_log" width="900"/>
 </p>
 
 
