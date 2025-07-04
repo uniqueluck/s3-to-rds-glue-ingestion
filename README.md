@@ -1,6 +1,4 @@
-🚀 Data Ingestion from S3 to RDS with Fallback to Glue
-
-This project reads a CSV from an S3 bucket, uploads it to an RDS MySQL database, and falls back to AWS Glue if the RDS push fails. The entire workflow is automated using a Python script and packaged in a Docker container for portability.
+## 🚀  Data Ingestion from S3 to RDS with Fallback to AWS Glue using Dockerized Python Application
 
 
 This guide is beginner-friendly and includes links to a full setup tutorial.
