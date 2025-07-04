@@ -50,15 +50,26 @@ This guide is beginner-friendly and includes links to a full setup tutorial.
 
 ### ✅ S3 Bucket
 1. Create bucket `my-s3-data-bucket`.
-2. Upload `data.csv`.  
+2. Upload `data.csv`.
+   <p align="center">
+  <img src="images/S3_buket.png" alt="S3" width="700"/>
+</p>
+
 
 ### ✅ RDS MySQL
 1. Create RDS MySQL database `mydb`.
 2. Enable public access.
 
+<p align="center">
+  <img src="images/RDS_database.png" alt="RDS" width="700"/>
+</p>
+
 ### ✅ AWS Glue
 1. Create Glue Database.
 2. Create Crawler for S3 data.
+<p align="center">
+  <img src="images/Glue.png" alt="Glue" width="700"/>
+</p>
 
 ## 🚀 Step 2: Launch EC2 Instance
 
