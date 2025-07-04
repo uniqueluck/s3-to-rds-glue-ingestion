@@ -52,7 +52,7 @@ This guide is beginner-friendly and includes links to a full setup tutorial.
 1. Create bucket `my-s3-data-bucket`.
 2. Upload `data.csv`.
    <p align="center">
-  <img src="images/S3_buket.png" alt="S3" width="700"/>
+  <img src="images/S3_buket.png" alt="S3" width="900"/>
 </p>
 
 
