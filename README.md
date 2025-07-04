@@ -129,6 +129,18 @@ docker run -e AWS_ACCESS_KEY_ID=XXXXXX `
            -e S3_FILE_KEY=data.csv `
            s3-to-rds-fallback
 ```
+🐳 Docker Setup
+<p align="center">
+  <img src="images/tree-diagram.png.png" alt="tree" width="700"/>
+</p>
+
+Run the container with required environment variables:
+
+
+<p align="center">
+  <img src="images/docker_run.png" alt="Docker_run" width="700"/>
+</p>
+
 
 ## 🚀 Final Output
 Once the project is set up and the Docker container is running, you will see logs showing the data ingestion process. 
@@ -152,35 +164,14 @@ If the RDS upload fails, the script automatically registers the CSV in AWS Glue 
 </p>
 
 
+
+### 📜 Logs in Docker
 <p align="center">
   <img src="images/RDS_database.png" alt="RDS_database" width="700"/>
 </p>
 
 <p align="center">
   <img src="images/Docker_log.png" alt="Docker_log" width="700"/>
-</p>
-
-
-
-
-🐳 Docker Setup
-<p align="center">
-  <img src="images/tree-diagram.png.png" alt="tree" width="700"/>
-</p>
-
-
-
-The project is containerized using Docker:
-
-
-docker build -t s3-to-rds-fallback .
-
-
-Run the container with required environment variables:
-
-
-<p align="center">
-  <img src="images/docker_run.png" alt="Docker_run" width="700"/>
 </p>
 
 
