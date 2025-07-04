@@ -186,62 +186,21 @@ If the RDS upload fails, the script automatically registers the CSV in AWS Glue 
 
 
 
+## 🌟 Why Use This Project?
 
-🌟 Why Use This Project?
+| Feature                     | Benefit                                        |
+|----------------------------|------------------------------------------------|
+| 📦 Dockerized App          | Works on any OS with Docker                    |
+| 🔁 AWS Glue Fallback        | No data loss if RDS fails                      |
+| ☁️ Native AWS Services      | Production-ready pipeline                      |
+| 🐍 Python Stack             | Uses boto3, pandas, SQLAlchemy, Docker         |
+| 🔒 Secure Configs           | No hardcoded secrets, uses environment vars    |
 
-This project demonstrates how to build a resilient, cloud-native data ingestion pipeline using real-world AWS services. It showcases key DevOps and cloud engineering skills, including:
+## 🙌 Who Should Use This?
 
-✅ Automated ingestion from S3 to RDS
-
-✅ Error handling with fallback to AWS Glue
-
-✅ Dockerized deployment for portability
-
-✅ Secure AWS integration using environment variables
-
-✅ Clean code and logging
-
-✅ Benefits
-Feature Benefit
-
-
-📦 Dockerized App
-
-Easy to run in any environment
-
-
-🔁 Fallback to AWS Glue
-
-Ensures no data loss even when RDS fails
-
-
-☁️ Native AWS Services
-
-Production-ready cloud components
-
-
-🛠️ Real Python Stack
-
-Demonstrates use of boto3, pandas, SQLAlchemy, Docker
-
-
-🔒 Secure Configs
-
-No hardcoded secrets – all done via environment variables
-
-
-
-
-
-
-
-💡 Who Should Use This Project?
-
-DevOps/Cloud engineers looking to showcase AWS integrations
-
-Students or professionals preparing for AWS interviews
-
-Anyone building fault-tolerant, automated data pipelines
+✅ Beginners exploring AWS  
+✅ Students preparing for cloud interviews  
+✅ Cloud engineers building fault-tolerant pipelines  
 
 🙌 Thank You!
 
