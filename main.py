@@ -1,3 +1,22 @@
+"""
+🚀 Data Ingestion Script
+
+This script performs the following steps:
+
+1️⃣ Uses boto3 to connect to S3 and download a CSV file.  
+2️⃣ Parses the CSV using pandas.  
+3️⃣ Uploads the data to Amazon RDS (MySQL) using SQLAlchemy.  
+4️⃣ If RDS upload fails, automatically falls back to AWS Glue:  
+    - Registers the dataset and schema in Glue Data Catalog.
+
+Tools & Libraries:
+- boto3
+- pandas
+- SQLAlchemy
+
+"""
+
+
 import os
 import boto3
 import pandas as pd
