@@ -1,100 +1,160 @@
-# 🚀 Data Ingestion from S3 to RDS with Fallback to Glue
+🚀 Data Ingestion from S3 to RDS with Fallback to Glue
 
-This project reads a CSV file from **Amazon S3**, uploads it to an **Amazon RDS (MySQL)** database, and automatically falls back to **AWS Glue** if the RDS upload fails. It uses a Python script packaged in a **Docker container** for easy deployment.  
+This project reads a CSV from an S3 bucket, uploads it to an RDS MySQL database, and falls back to AWS Glue if the RDS push fails. The entire workflow is automated using a Python script and packaged in a Docker container for portability.
 
-This guide is beginner-friendly and includes links to a full setup tutorial.
-
-## 📦 Table of Contents
-- [📸 Architecture](#-architecture)
-- [⚙️ Prerequisites](#-prerequisites)
-- [🌐 AWS Setup Guide](#-aws-setup-guide)
-- [🚀 Setup and Run](#-setup-and-run)
-- [🐍 Python Script Logic](#-python-script-logic)
-- [🌟 Why Use This Project?](#-why-use-this-project)
-- [🙌 Who Should Use This?](#-who-should-use-this)
-- [📜 License](#-license)
-
-## 📸 Architecture
+🔄 Data Flow Architecture
 
 <p align="center">
   <img src="images/Data Flow Diagram.png" alt="Data Flow Diagram" width="700"/>
 </p>
 
-## ⚙️ Prerequisites
 
-✅ AWS Account ([Sign up here](https://aws.amazon.com/free/))  
-✅ PowerShell (comes preinstalled in Windows 10/11)  
+1. Read CSV file from Amazon S3
 
-## 🌐 AWS Setup Guide
+2. Attempt to push to Amazon RDS (MySQL-compatible)
 
-To set up AWS services and prepare your EC2 instance:  
+3. If the RDS connection/upload fails:
 
-👉 See the full beginner guide: [BeginnerSetup.md](BeginnerSetup.md)  
+Automatically fall back to AWS Glue Data Catalog
 
-### ⚙️ Prepare EC2 Environment (Quick Steps)
-
-```bash
-# Update and install Docker on Amazon Linux 2
-sudo yum update -y
-sudo amazon-linux-extras install docker -y
-sudo service docker start
-sudo usermod -a -G docker ec2-user
-
-# Install Python 3
-sudo yum install python3 -y
+Register the dataset and schema based on S3 file
 
 
 
-## 🚀 Setup and Run
-
-### 🔥 Clone Repository
-```powershell
-git clone https://github.com/<your-username>/s3-to-rds-fallback.git
-cd s3-to-rds-fallback
-```
-
-### 🐳 Build Docker Image
-```powershell
-docker build -t s3-to-rds-fallback .
-```
-
-### ▶️ Run Docker Container
-```powershell
-docker run -e AWS_ACCESS_KEY_ID=XXXXXX `
-           -e AWS_SECRET_ACCESS_KEY=XXXXXX `
-           -e AWS_DEFAULT_REGION=ap-south-1 `
-           -e RDS_HOST=<your-rds-endpoint> `
-           -e RDS_PORT=3306 `
-           -e RDS_DB=mydb `
-           -e RDS_USER=admin `
-           -e RDS_PASSWORD=YourPassword123 `
-           -e S3_BUCKET_NAME=my-s3-data-bucket `
-           -e S3_FILE_KEY=data.csv `
-           s3-to-rds-fallback
-```
-
-## 🐍 Python Script Logic
+🐍 Python Script Logic
 
 <p align="center">
   <img src="images/Python Code Screenshot.png" alt="Python Code Screenshot" width="700"/>
 </p>
 
-## 🌟 Why Use This Project?
 
-| Feature                     | Benefit                                        |
-|----------------------------|------------------------------------------------|
-| 📦 Dockerized App          | Works on any OS with Docker                    |
-| 🔁 AWS Glue Fallback        | No data loss if RDS fails                      |
-| ☁️ Native AWS Services      | Production-ready pipeline                      |
-| 🐍 Python Stack             | Uses boto3, pandas, SQLAlchemy, Docker         |
-| 🔒 Secure Configs           | No hardcoded secrets, uses environment vars    |
+The script:
 
-## 🙌 Who Should Use This?
+Uses boto3 to connect to S3 and download a CSV
 
-✅ Beginners exploring AWS  
-✅ Students preparing for cloud interviews  
-✅ Cloud engineers building fault-tolerant pipelines  
+Parses the CSV using pandas
 
-## 📜 License
+Uploads it to RDS via SQLAlchemy
 
-MIT License. See [LICENSE](LICENSE).  
+If RDS fails, uses boto3 to create a table in AWS Glue
+
+
+
+📁 AWS Glue Fallback
+
+<p align="center">
+  <img src="images/Glue.png" alt="Glue Table Screenshot" width="700"/>
+</p>
+
+<p align="center">
+  <img src="images/Glue_table.png" alt="Glue Table Screenshot" width="700"/>
+</p>
+
+<p align="center">
+  <img src="images/Glue Table Screenshot.png" alt="Glue Table Screenshot" width="700"/>
+</p>
+
+If the RDS upload fails, the script registers the CSV file in the Glue Data Catalog:
+
+<p align="center">
+  <img src="images/RDS_database.png" alt="RDS_database" width="700"/>
+</p>
+
+<p align="center">
+  <img src="images/Docker_log.png" alt="Docker_log" width="700"/>
+</p>
+
+
+
+
+🐳 Docker Setup
+<p align="center">
+  <img src="images/tree-diagram.png.png" alt="tree" width="700"/>
+</p>
+
+
+
+The project is containerized using Docker:
+
+
+docker build -t s3-to-rds-fallback .
+
+
+Run the container with required environment variables:
+
+
+<p align="center">
+  <img src="images/docker_run.png" alt="Docker_run" width="700"/>
+</p>
+
+
+
+✅ Final Output Logs
+
+<p align="center">
+  <img src="images/Docker_log.png" alt="Docker_log" width="700"/>
+</p>
+
+
+
+🌟 Why Use This Project?
+
+This project demonstrates how to build a resilient, cloud-native data ingestion pipeline using real-world AWS services. It showcases key DevOps and cloud engineering skills, including:
+
+✅ Automated ingestion from S3 to RDS
+
+✅ Error handling with fallback to AWS Glue
+
+✅ Dockerized deployment for portability
+
+✅ Secure AWS integration using environment variables
+
+✅ Clean code and logging
+
+✅ Benefits
+Feature Benefit
+
+
+📦 Dockerized App
+
+Easy to run in any environment
+
+
+🔁 Fallback to AWS Glue
+
+Ensures no data loss even when RDS fails
+
+
+☁️ Native AWS Services
+
+Production-ready cloud components
+
+
+🛠️ Real Python Stack
+
+Demonstrates use of boto3, pandas, SQLAlchemy, Docker
+
+
+🔒 Secure Configs
+
+No hardcoded secrets – all done via environment variables
+
+
+
+
+
+
+
+💡 Who Should Use This Project?
+
+DevOps/Cloud engineers looking to showcase AWS integrations
+
+Students or professionals preparing for AWS interviews
+
+Anyone building fault-tolerant, automated data pipelines
+
+🙌 Thank You!
+
+If you find this project useful, consider ⭐ starring the repo. Feedback and contributions are welcome!
+
+
