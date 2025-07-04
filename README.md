@@ -22,7 +22,6 @@ This guide is beginner-friendly and includes links to a full setup tutorial.
 - [🌐 AWS Setup Guide](#-aws-setup-guide)
 - [🚀 Setup and Run](#-setup-and-run)
 - [🚀 Final Output](#-final-output)
-- [🐍 Python Script Logic](#-python-script-logic)
 - [🌟 Why Use This Project?](#-why-use-this-project)
 - [🙌 Who Should Use This?](#-who-should-use-this)
 
