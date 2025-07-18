@@ -1,156 +1,109 @@
-# 🚀 Deploying a Highly Available 3-Tier Web Architecture on AWS with Terraform & Ansible
+# 🚀 Data Ingestion from S3 to RDS with Fallback to Glue
 
----
+This project reads a CSV file from **Amazon S3**, uploads it to an **Amazon RDS (MySQL)** database, and automatically falls back to **AWS Glue** if the RDS upload fails. It uses a Python script packaged in a **Docker container** for easy deployment.  
 
-## 📖 Table of Contents
-1. [Project Overview](#project-overview)
-2. [Why This Project is Important](#why-this-project-is-important)
-3. [What You Will Learn](#what-you-will-learn)
-4. [Real-World Use Cases](#real-world-use-cases)
-5. [Step-by-Step Implementation](#step-by-step-implementation)
-6. [Screenshots Summary](#screenshots-summary)
-7. [GitHub Repository](#github-repository)
-8. [Conclusion](#conclusion)
+This guide is beginner-friendly and includes links to a full setup tutorial.
 
----
+## 📦 Table of Contents
+- [📸 Architecture](#-architecture)
+- [⚙️ Prerequisites](#-prerequisites)
+- [🌐 AWS Setup Guide](#-aws-setup-guide)
+- [🚀 Setup and Run](#-setup-and-run)
+- [🐍 Python Script Logic](#-python-script-logic)
+- [🌟 Why Use This Project?](#-why-use-this-project)
+- [🙌 Who Should Use This?](#-who-should-use-this)
+- [📜 License](#-license)
 
-## 📌 Project Overview
-This beginner-friendly project shows how to deploy a **highly available 3-tier architecture** on AWS using **Terraform** and **Ansible**.
-
-
----
-
-## 🎯 Why This Project is Important
-- Learn **real-world AWS infrastructure design**
-- Apply **Infrastructure as Code (IaC)** concepts
-- Automate multi-tier app deployments
-
----
-
-## 📚 What You Will Learn
-✅ Provision AWS resources using Terraform modules  
-✅ Configure servers with Ansible  
-✅ Deploy and test a full 3-tier architecture
-
----
-
-## 🌍 Real-World Use Cases
-- Hosting scalable web applications
-- Automating deployments in DevOps pipelines
-- Multi-tier architecture deployments
-
----
-
-## 🛠 Step-by-Step Implementation
-
-### 🌐 Step 1: Launch EC2 for Terraform & Ansible
-Login to AWS Console → Search for “EC2” → Launch instance → Amazon Linux 2 → t2.micro → Create key pair → Launch.
+## 📸 Architecture
 
 <p align="center">
-  <img src="Screenshots/01-Launch-EC2.png" alt="Launch EC2" width="900"/>
+  <img src="images/Data_Flow_Diagram.png" alt="Data Flow Diagram" width="700"/>
 </p>
-📖 *EC2 instance launch configuration.*
 
----
+## ⚙️ Prerequisites
 
-### ⚙️ Step 2: Install Terraform & Ansible
-SSH into EC2 and run:
+✅ AWS Account ([Sign up here](https://aws.amazon.com/free/))  
+✅ Docker Desktop installed on Windows ([Get it here](https://www.docker.com/products/docker-desktop))  
+✅ AWS CLI installed ([Install guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html))  
+✅ PowerShell (comes preinstalled in Windows 10/11)  
+
+## 🌐 AWS Setup Guide
+
+To set up AWS services and prepare your EC2 instance:  
+
+👉 See the full beginner guide: [BeginnerSetup.md](BeginnerSetup.md)  
+
+### ⚙️ Prepare EC2 Environment (Quick Steps)
+
 ```bash
+# Update and install Docker on Amazon Linux 2
 sudo yum update -y
-sudo yum install -y wget unzip
-wget https://releases.hashicorp.com/terraform/1.6.0/terraform_1.6.0_linux_amd64.zip
-unzip terraform_1.6.0_linux_amd64.zip
-sudo mv terraform /usr/local/bin/
-sudo amazon-linux-extras install ansible2 -y
+sudo amazon-linux-extras install docker -y
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+
+# Install Python 3
+sudo yum install python3 -y
+
+# Install AWS CLI
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+# Configure AWS CLI
+aws configure
 ```
 
+## 🚀 Setup and Run
 
-
----
-
-### 📦 Step 3: Write Terraform Code
-Folder structure:
+### 🔥 Clone Repository
+```powershell
+git clone https://github.com/<your-username>/s3-to-rds-fallback.git
+cd s3-to-rds-fallback
 ```
-terraform-3tier-project/
-├── main.tf
-├── variables.tf
-├── outputs.tf
-├── provider.tf
-├── modules/
-│   ├── vpc/
-│   ├── ec2/
-│   └── rds/
+
+### 🐳 Build Docker Image
+```powershell
+docker build -t s3-to-rds-fallback .
 ```
-<p align="center">
-  <img src="images/03-Terraform-Structure.png" alt="Terraform Structure" width="900"/>
-</p>
-📖 *Terraform folder and files overview.*
 
----
-
-### 🚀 Step 4: Apply Terraform to Provision Infrastructure
-```bash
-cd terraform-3tier-project
-terraform init
-terraform plan
-terraform apply
+### ▶️ Run Docker Container
+```powershell
+docker run -e AWS_ACCESS_KEY_ID=XXXXXX `
+           -e AWS_SECRET_ACCESS_KEY=XXXXXX `
+           -e AWS_DEFAULT_REGION=ap-south-1 `
+           -e RDS_HOST=<your-rds-endpoint> `
+           -e RDS_PORT=3306 `
+           -e RDS_DB=mydb `
+           -e RDS_USER=admin `
+           -e RDS_PASSWORD=YourPassword123 `
+           -e S3_BUCKET_NAME=my-s3-data-bucket `
+           -e S3_FILE_KEY=data.csv `
+           s3-to-rds-fallback
 ```
-<p align="center">
-  <img src="terraform.png" alt="Terraform Apply" width="900"/>
-</p>
-📖 *Terraform provisioning AWS resources.*
 
----
-
-### 📝 Step 5: Configure Servers with Ansible
-Run:
-```bash
-cd ansible-3tier-setup
-ansible-playbook -i inventory site.yml
-```
-<p align="center">
-  <img src="Screenshots/5_ansible_playbook_run.png" alt="Ansible Playbook" width="900"/>
-</p>
-📖 *Ansible playbook applying configurations.*
-
----
-
-### ✅ Step 6: Verify Setup
-- Visit the web app URL → Submit registration form
-- Check RDS database for new entries
-<p align="center">
-  <img src="Screenshots/1_web_registration_form.png" alt="Web App" width="900"/>
-</p>
+## 🐍 Python Script Logic
 
 <p align="center">
-  <img src="Screenshots/2_form_submission_success.png" alt="Web App" width="900"/>
+  <img src="images/Python_Code_Screenshot.png" alt="Python Code Screenshot" width="700"/>
 </p>
-📖 *Web app registration form.*
 
-<p align="center">
-  <img src="Screenshots/3_rds_database_entr.png" alt="RDS Database" width="900"/>
-</p>
-📖 *Data entries visible in RDS database.*
+## 🌟 Why Use This Project?
 
----
+| Feature                     | Benefit                                        |
+|----------------------------|------------------------------------------------|
+| 📦 Dockerized App          | Works on any OS with Docker                    |
+| 🔁 AWS Glue Fallback        | No data loss if RDS fails                      |
+| ☁️ Native AWS Services      | Production-ready pipeline                      |
+| 🐍 Python Stack             | Uses boto3, pandas, SQLAlchemy, Docker         |
+| 🔒 Secure Configs           | No hardcoded secrets, uses environment vars    |
 
-## 📸 Screenshots Summary
-| Step                     | Screenshot                                  | Description                             |
-|--------------------------|----------------------------------------------|-----------------------------------------|
-| Launch EC2               | images/01-Launch-EC2.png                    | EC2 instance launch                     |
-| Install Terraform/Ansible| images/02-Install-Terraform-Ansible.png      | Terraform & Ansible installation        |
-| Terraform Files          | images/03-Terraform-Structure.png           | Terraform folder structure              |
-| Terraform Apply          | images/04-Terraform-Apply.png               | Terraform apply result                  |
-| Ansible Playbook         | images/05-Ansible-Playbook.png              | Running Ansible playbook                |
-| Web App                  | images/06-Web-App.png                       | Registration form running               |
-| RDS Database             | images/07-RDS-Entries.png                   | Data entries in RDS                     |
+## 🙌 Who Should Use This?
 
----
+✅ Beginners exploring AWS  
+✅ Students preparing for cloud interviews  
+✅ Cloud engineers building fault-tolerant pipelines  
 
-## 🔗 GitHub Repository
-All code files are available here: [GitHub Repo](https://github.com/uniqueluck/3tier-aws-project)
+## 📜 License
 
----
-
-## 🎉 Conclusion
-This documentation helps even beginners deploy a 3-tier AWS architecture using Terraform & Ansible with step-by-step guidance and screenshots.
+MIT License. See [LICENSE](LICENSE).  
